@@ -23,7 +23,7 @@ return new class extends Migration
             $table->date('date_of_birth');
             $table->string('phone_number');
             $table->string('occupation');
-            $table->enum('marital_status', ['singgle', 'merried']);
+            $table->enum('marital_status', ['single', 'married']);
 
             $table->softDeletes();
             $table->timestamps();
