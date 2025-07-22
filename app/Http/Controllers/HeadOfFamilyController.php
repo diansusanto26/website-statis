@@ -44,10 +44,10 @@ class HeadOfFamilyController extends Controller
         try {
             $headOfFamilies = $this->headOfFamilyRepository->getAllPaginated(
                 $request['search'] ?? null,
-                $request['row_page']
+                $request['row_per_page']
             );
 
-            return ResponseHelper::JsonResponse(true, 'Data Kepala Keluarga Berhasil Diambil', PaginateResource::make($headOfFamilies), HeadOfFamilyResource::class, 200);
+            return ResponseHelper::JsonResponse(true, 'Data Kepala Keluarga Berhasil Diambil', PaginateResource::make($headOfFamilies, HeadOfFamilyResource::class), 200);
         } catch (\Exception $e) {
             return ResponseHelper::JsonResponse(true, 'Data Kepala Keluarga Gagal Diambil', null, 500);
         }
