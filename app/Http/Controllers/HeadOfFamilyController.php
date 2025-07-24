@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Helpers\ResponseHelper;
 use App\Http\Requests\HeadOfFamilyStoreRequest;
+use App\Http\Requests\HeadOfFamilyUpdateRequest;
 use App\Http\Resources\HeadOfFamilyResource;
 use App\Http\Resources\PaginateResource;
 use App\Interfaces\HeadOfFamilyRepositoryInterface;
+use App\Models\HeadOfFamily;
 use Illuminate\Http\Request;
 
 class HeadOfFamilyController extends Controller
@@ -75,15 +77,46 @@ class HeadOfFamilyController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $headOfFamily = $this->headOfFamilyRepository->getById(
+                $id
+            );
+
+            if (!$headOfFamily) {
+                return ResponseHelper::jsonResponse(false, 'Kepala keluarga tidak ditemukan', null, 404);
+            }
+
+            return ResponseHelper::JsonResponse(true, 'Detail Kepala Keluarga berhasil ditampilkan', new HeadOfFamilyResource($headOfFamily), 200);
+        } catch (\Exception $e) {
+            return ResponseHelper::JsonResponse(false, $e->getMessage(), null, 500);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(HeadOfFamilyUpdateRequest $request, string $id)
     {
-        //
+        $request = $request->validated();
+
+        try {
+            $headOfFamily = $this->headOfFamilyRepository->getById(
+                $id
+            );
+
+            if (!$headOfFamily) {
+                return ResponseHelper::JsonResponse(false, 'Kepala Keluarga tidak Ditemukan', null, 404);
+            }
+
+            $headOfFamily = $this->headOfFamilyRepository->update(
+                $id,
+                $request
+            );
+
+            return ResponseHelper::JsonResponse(true, 'Kepala Keluarga Berhasil diupdate', new HeadOfFamilyResource($headOfFamily), 200);
+        } catch (\Exception $e) {
+            return ResponseHelper::JsonResponse(false, $e->getMessage(), null, 500);
+        }
     }
 
     /**

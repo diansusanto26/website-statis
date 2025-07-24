@@ -2,11 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Models\HeadOfFamily;
 use Illuminate\Foundation\Http\FormRequest;
-use Symfony\Contracts\Service\Attribute\Required;
 
-class HeadOfFamilyStoreRequest extends FormRequest
+class HeadOfFamilyUpdateRequest extends FormRequest
 {
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -16,9 +17,9 @@ class HeadOfFamilyStoreRequest extends FormRequest
     {
         return  [
             'name' => 'required|string|max:225',
-            'email' => 'required|string|email|max:225|unique:users',
-            'password' => 'required|string|min:8',
-            'profile_picture' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'email' => 'required|string|email|max:255|unique:users,email,' . HeadOfFamily::find($this->route('head_of_family'))->user_id,
+            'password' => 'nullable|string|min:8',
+            'profile_picture' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
             'identity_number' => 'required|integer',
             'gender' => 'required|string|in:male,female',
             'date_of_birth' => 'required|date',
