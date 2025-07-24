@@ -17,7 +17,7 @@ class HeadOfFamilyUpdateRequest extends FormRequest
     {
         return  [
             'name' => 'required|string|max:225',
-            'email' => 'required|string|email|max:255|unique:users,email,' . HeadOfFamily::find($this->route('head_of_family'))->user_id,
+            'email' => 'nullable|string|email|max:255|unique:users,email,' . HeadOfFamily::find($this->route('head_of_family'))->user_id,
             'password' => 'nullable|string|min:8',
             'profile_picture' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
             'identity_number' => 'required|integer',
