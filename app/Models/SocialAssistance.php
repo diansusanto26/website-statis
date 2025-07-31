@@ -11,7 +11,7 @@ class SocialAssistance extends Model
     use SoftDeletes, UUID;
 
     protected $fillable = [
-        'thumnail',
+        'thumbnail',
         'name',
         'category',
         'amount',
