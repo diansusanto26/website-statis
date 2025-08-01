@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ResponseHelper;
+use App\Http\Requests\SocialAssistanceStoreRequest;
+use App\Http\Requests\SocialAssistanceUpdateRequest;
 use App\Http\Resources\PaginateResource;
 use App\Http\Resources\SocialAssistanceResource;
 use App\Interfaces\SocialAssistanceRepositoryInterface;
@@ -56,9 +58,17 @@ class SocialAssistanceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SocialAssistanceStoreRequest $request)
     {
-        //
+        $request = $request->validated();
+
+        try {
+            $socialAssistance = $this->socialAssistanceRepository->create($request);
+
+            return ResponseHelper::JsonResponse(true, 'Data Bantuan Sosial Berhasil Ditambahkan', new SocialAssistanceResource($socialAssistance), 200);
+        } catch (\Exception $e) {
+            return ResponseHelper::JsonResponse(false, $e->getMessage(), null, 500);
+        }
     }
 
     /**
@@ -66,15 +76,43 @@ class SocialAssistanceController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $socialAssistance = $this->socialAssistanceRepository->getById($id);
+
+            if (!$socialAssistance) {
+                return ResponseHelper::JsonResponse(false, 'Data Bantuan Sosial Tidak Ditemukan', null, 404);
+            }
+
+            return ResponseHelper::JsonResponse(true, 'Data Bantuan Sosial Berhasil Diambil', new SocialAssistanceResource($socialAssistance), 200);
+        } catch (\Exception $e) {
+            return ResponseHelper::JsonResponse(false, $e->getMessage(), null, 500);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(SocialAssistanceUpdateRequest $request, string $id)
     {
-        //
+        $request = $request->validated();
+
+        try {
+            $socialAssistance = $this->socialAssistanceRepository->getById($id);
+
+            if (!$socialAssistance) {
+                return ResponseHelper::JsonResponse(false, 'Data Bantuan sosial Tidak Ditemukan', null, 404);
+            }
+
+            $socialAssistance = $this->socialAssistanceRepository->update(
+                $id,
+                $request
+            );
+
+
+            return ResponseHelper::JsonResponse(true, 'Data Bantuan Sosial Berhasil Update', new SocialAssistanceResource($socialAssistance), 200);
+        } catch (\Exception $e) {
+            return ResponseHelper::JsonResponse(false, $e->getMessage(), null, 500);
+        }
     }
 
     /**
@@ -82,6 +120,18 @@ class SocialAssistanceController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $socialAssistance = $this->socialAssistanceRepository->getById($id);
+
+            if (!$socialAssistance) {
+                return ResponseHelper::JsonResponse(false, 'Data Bantuan Sosial Tidak Ditemukan', null, 404);
+            }
+
+            $socialAssistance = $this->socialAssistanceRepository->delete($id);
+
+            return ResponseHelper::JsonResponse(true, 'Data Bantuan Sosial Berhasil Hapus', null, 200);
+        } catch (\Exception $e) {
+            return ResponseHelper::JsonResponse(false, $e->getMessage(), null, 500);
+        }
     }
 }
