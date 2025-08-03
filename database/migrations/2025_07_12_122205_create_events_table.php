@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('thumnail');
+            $table->string('thumbnail');
             $table->string('name');
             $table->longText('description');
             $table->decimal('price', 10, 2);
             $table->date('date');
             $table->time('time');
-            $table->boolean('is_actice')->default(true);
+            $table->boolean('is_active')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });
