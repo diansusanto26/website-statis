@@ -22,10 +22,10 @@ return new class extends Migration
 
             $table->decimal('amount', 10, 2);
             $table->longText('reason');
-            $table->enum('bank', ['bri','bca','bni','mandiri']);
-            $table->integer('account_number');
-            $table->string('proof');
-            $table->enum('status',['pending','approved','rejected'])->default('pending');
+            $table->enum('bank', ['bri', 'bca', 'bni', 'mandiri']);
+            $table->bigInteger('account_number');
+            $table->string('proof')->nullable();
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->softDeletes();
             $table->timestamps();
         });
