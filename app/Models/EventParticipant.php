@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\Traits\UUID;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EventParticipant extends Model
 {
-    use SoftDeletes, UUID;
+    use HasFactory, SoftDeletes, UUID;
 
     protected $fillable = [
         'event_id',
@@ -19,6 +20,21 @@ class EventParticipant extends Model
 
     ];
 
+    protected $casts = [
+        'quantity' => 'integer',
+        'total_price' => 'decimal:2'
+    ];
+
+    public function scopeSearch($querry, $search)
+    {
+        return $querry->whereHas('headOfFamily', function ($querry) use ($search) {
+            $querry->whereHas('user', function ($querry) use ($search) {
+                $querry->where('name', 'like', '%' . $search . '%');
+                $querry->orWhere('email', 'like', '%' . $search . '%');
+            });
+        });
+    }
+
     public function event()
     {
         return $this->belongsTo(Event::class);
@@ -27,5 +43,5 @@ class EventParticipant extends Model
     public function headOfFamily()
     {
         return $this->belongsTo(HeadOfFamily::class);
-    }    
+    }
 }
