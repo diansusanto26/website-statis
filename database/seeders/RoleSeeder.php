@@ -20,7 +20,7 @@ class RoleSeeder extends Seeder
         ])->givePermissionTo(Permission::all());
 
         Role::firstOrCreate([
-            'name' => 'admin',
+            'name' => 'head-of-family',
             'guard_name' => 'sanctum',
         ])->givePermissionTo([
             'dashboard-menu',
