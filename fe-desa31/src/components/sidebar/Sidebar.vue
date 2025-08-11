@@ -24,7 +24,7 @@ const sidebarItem = [
             <div class="flex flex-col h-full w-full gap-6 pt-[30px] px-6">
                 <div class="flex items-center justify-between">
                     <img
-                        src="@/assets/images/logos/logo-text.svg"
+                        src="@/assets/images/logos/baros-text.svg"
                         class="flex h-[30px] shrink-0"
                         alt="logo"
                     />
