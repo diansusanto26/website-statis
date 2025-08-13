@@ -15,8 +15,8 @@ const { loading, error } = storeToRefs(authStore);
 const { login } = authStore;
 
 const form = ref({
-    email: null,
-    password: null,
+    email: "",
+    password: "",
 });
 
 const handleSubmit = async () => {

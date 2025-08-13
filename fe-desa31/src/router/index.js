@@ -47,11 +47,11 @@ router.beforeEach(async (to, from, next) => {
                     await authStore.checkAuth();
                 }
 
-                const userPermission = authStore.user?.permission || [];
+                const userPermissions = authStore.user?.permissions || [];
 
                 if (
                     to.meta.permission &&
-                    !userPermission.include(to.meta.permission)
+                    !userPermissions.includes(to.meta.permission)
                 ) {
                     next({ name: "Error 403" });
                     return;
@@ -64,7 +64,7 @@ router.beforeEach(async (to, from, next) => {
         } else {
             next({ name: "login" });
         }
-    } else if (to.meta.requiresUnauth && authStore.token) {
+    } else if (!to.meta.requiresAuth && authStore.token) {
         next({ name: "dashboard" });
     } else {
         next();

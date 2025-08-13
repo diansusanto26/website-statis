@@ -16,6 +16,7 @@ export const useAuthStore = defineStore("auth", {
     },
     actions: {
         async login(credentials) {
+            this.loading = true;
             try {
                 const response = await axiosInstance.post(
                     "/login",
@@ -23,7 +24,7 @@ export const useAuthStore = defineStore("auth", {
                 );
                 const token = response.data.token;
                 Cookies.set("token", token);
-                this.success = "Login successfull";
+                this.success = "Login successful";
                 router.push({ name: "dashboard" });
             } catch (error) {
                 this.error = handleError(error);
@@ -32,12 +33,12 @@ export const useAuthStore = defineStore("auth", {
             }
         },
 
-        async logout() {
+        logout() {
             Cookies.remove("token");
             router.push({ name: "login" });
             this.user = null;
             this.error = null;
-            this.success = "Logout successfull";
+            this.success = "Logout successful";
         },
 
         async checkAuth() {
@@ -50,8 +51,9 @@ export const useAuthStore = defineStore("auth", {
                 if (error.response && error.response.status === 401) {
                     this.logout();
                 }
+            } finally {
+                this.loading = false;
             }
-            this.loading = false;
         },
     },
 });
