@@ -15,11 +15,10 @@ class AuthController extends Controller
         $this->authRepository = $authRepository;
     }
 
-    public function login(LoginStoreRequest $requst)
+    public function login(LoginStoreRequest $request)
     {
-        $requst = $requst->validated();
-
-        return $this->authRepository->login($requst);
+        $request = $request->validated();
+        return $this->authRepository->login($request);
     }
 
     public function logout()

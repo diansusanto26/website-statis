@@ -58,13 +58,13 @@ const sidebarItem = [
                     >
                         <div class="flex flex-col gap-1">
                             <p class="font-semibold leading-5 text-white">
-                                Beralih ke Pro
+                                Pekalongan
                             </p>
                             <a
                                 href="#"
                                 class="flex items-center font-medium text-sm hover:underline text-desa-soft-green"
                             >
-                                Upgrade Plan
+                                World's City of Batik
                                 <img
                                     src="@/assets/images/icons/arrow-right-soft-green.png"
                                     class="flex size-3 shrink-0 ml-0.5"

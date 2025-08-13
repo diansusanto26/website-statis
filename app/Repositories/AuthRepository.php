@@ -17,7 +17,6 @@ class AuthRepository implements AuthRepositoryInterface
         }
 
         $user = Auth::user();
-
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
@@ -30,24 +29,21 @@ class AuthRepository implements AuthRepositoryInterface
     public function logout()
     {
         $user = Auth::user();
-
         $user->currentAccessToken()->delete();
 
-        $response = [
+        return response([
             'success' => true,
-            'message' => 'Logout Success'
-        ];
+            'message' => 'Logout Success',
+        ], 200);
     }
 
     public function me()
     {
         if (Auth::check()) {
             $user = Auth::user();
+            $user->load('roles.permissions');
 
-            $user->load('roles.permission');
-
-            $permissions = $user->roles->flatMap->permission->pluck();
-
+            $permissions = $user->roles->flatMap->permissions->pluck('name');
             $role = $user->roles->first()->name;
 
             return response()->json([
