@@ -32,6 +32,7 @@ const handleSubmit = async () => {
 <template>
     <form
         @submit.prevent="handleSubmit"
+        action="kk-dashboard.html"
         class="flex items-center flex-1 pl-[calc(((100%-1280px)/2)+75px)]"
     >
         <div
@@ -39,7 +40,7 @@ const handleSubmit = async () => {
         >
             <header class="flex flex-col gap-[32px] items-center">
                 <img
-                    src="@/assets/images/logos/baros-text.svg"
+                    src="@/assets/images/logos/logo-text.svg"
                     alt="icon"
                     class="shrink-0 h-[38px] w-[197px]"
                 />
@@ -122,12 +123,13 @@ const handleSubmit = async () => {
                     <Input
                         v-model="form.email"
                         type="email"
-                        placeholder="Masukan Email Kamu"
+                        placeholder="Ketik Email Kamu"
                         :error-message="error?.email"
                         :icon="IconProfileSecondaryGreen"
                         :filled-icon="IconProfileBlack"
                     />
                 </div>
+
                 <div id="Password" class="flex flex-col gap-4">
                     <h2 class="font-medium leading-5 text-desa-secondary">
                         Password
@@ -135,7 +137,7 @@ const handleSubmit = async () => {
                     <Input
                         v-model="form.password"
                         type="password"
-                        placeholder="Masukan Password Kamu"
+                        placeholder="Ketik Password Kamu"
                         :error-message="error?.password"
                         :icon="IconKeySecondaryGreen"
                         :filled-icon="IconKeyBlack"
@@ -153,7 +155,7 @@ const handleSubmit = async () => {
                 class="h-full w-[622px] rounded-3xl gradient-vertical pt-[59px] pb-[60px]"
             >
                 <img
-                    src="@/assets/images/backgrounds/logo_Pekalongan.png"
+                    src="@/assets/images/backgrounds/bg-signin.png"
                     class="h-full w-[542px] object-contain mx-auto"
                     alt="banner"
                 />

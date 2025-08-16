@@ -58,7 +58,7 @@
                 </div>
                 <div class="flex flex-col gap-[6px] w-[120px] shrink-0">
                     <p class="font-semibold leading-5 w-[120px] truncate">
-                        Bustanul Huda
+                        Bimore W
                     </p>
                     <p class="font-medium text-sm text-desa-secondary">
                         Kepala Desa

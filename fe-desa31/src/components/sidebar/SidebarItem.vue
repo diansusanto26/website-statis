@@ -10,19 +10,19 @@ const props = defineProps({
 });
 
 const route = useRoute();
+
 const isActive = computed(() => route.path === props.item.path);
 
 const isChildActive = computed(() => {
     if (props.item.children) {
         return props.item.children.some((child) => route.path === child.path);
     }
-
     return false;
 });
 
 const isOpen = ref(isChildActive.value);
 
-watch(isChildActive, () => {
+watch(isChildActive, (v) => {
     isOpen.value = isChildActive.value;
 });
 </script>
@@ -42,6 +42,7 @@ watch(isChildActive, () => {
                     class="absolute flex size-6 shrink-0 opacity-0 group-hover:opacity-100 group-[.active]:opacity-100 transition-setup"
                     alt="icon"
                 />
+
                 <img
                     :src="item.iconInactive"
                     class="absolute flex size-6 shrink-0 opacity-100 group-hover:opacity-0 group-[.active]:opacity-0 transition-setup"
@@ -58,8 +59,8 @@ watch(isChildActive, () => {
     <template v-if="item.children">
         <div class="accordion group/accordion flex flex-col gap-1 w-full">
             <button
-                :data-expand="`accordion-${item.label}`"
-                class="group flex w-full shrink-0 items-center h-14 gap-2 rounded-2xl p-4 active"
+                data-accordion="accordion-{{$item.label}}"
+                class="group flex w-full shrink-0 items-center h-14 gap-2 rounded-2xl px-4 active"
                 @click="isOpen = !isOpen"
             >
                 <div class="relative flex size-6 shrink-0">
@@ -74,16 +75,17 @@ watch(isChildActive, () => {
                         alt="icon"
                     />
                 </div>
+
                 <span
                     class="text-left leading-5 text-desa-secondary flex flex-1 group-[.active]:text-desa-dark-green transition-setup"
                 >
                     {{ item.label }}
                 </span>
+
                 <div class="relative flex size-6 shrink-0">
                     <img
                         src="@/assets/images/icons/arrow-circle-dark-green-up.svg"
                         class="absolute flex size-6 shrink-0 transition-setup"
-                        alt="icon"
                         v-if="isOpen"
                     />
                     <img
@@ -94,9 +96,10 @@ watch(isChildActive, () => {
                     />
                 </div>
             </button>
+
             <ul
-                :id="`accordion-${item.label}`"
-                class="flex flex-col flex-1r pl-[28px]"
+                id="accordion-{{item.label}}"
+                class="flex flex-col flex-1 pl-12px"
                 :class="{ hidden: !isOpen }"
             >
                 <SidebarItem

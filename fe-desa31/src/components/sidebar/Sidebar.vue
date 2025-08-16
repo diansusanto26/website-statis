@@ -3,7 +3,7 @@ import SidebarItem from "./SidebarItem.vue";
 import iconChartActive from "@/assets/images/icons/chart-square-dark-green.svg";
 import iconChartInactive from "@/assets/images/icons/chart-square-secondary-green.svg";
 
-const sidebarItem = [
+const sidebarItems = [
     {
         label: "Dashboard",
         path: "/",
@@ -24,7 +24,7 @@ const sidebarItem = [
             <div class="flex flex-col h-full w-full gap-6 pt-[30px] px-6">
                 <div class="flex items-center justify-between">
                     <img
-                        src="@/assets/images/logos/baros-text.svg"
+                        src="@/assets/images/logos/logo-text.svg"
                         class="flex h-[30px] shrink-0"
                         alt="logo"
                     />
@@ -47,7 +47,7 @@ const sidebarItem = [
                         </p>
                         <ul class="flex flex-col gap-2">
                             <SidebarItem
-                                v-for="(item, index) in sidebarItem"
+                                v-for="(item, index) in sidebarItems"
                                 :key="index"
                                 :item="item"
                             />
@@ -58,13 +58,13 @@ const sidebarItem = [
                     >
                         <div class="flex flex-col gap-1">
                             <p class="font-semibold leading-5 text-white">
-                                Pekalongan
+                                Beralih ke Pro
                             </p>
                             <a
                                 href="#"
                                 class="flex items-center font-medium text-sm hover:underline text-desa-soft-green"
                             >
-                                World's City of Batik
+                                Upgrade Plan
                                 <img
                                     src="@/assets/images/icons/arrow-right-soft-green.png"
                                     class="flex size-3 shrink-0 ml-0.5"

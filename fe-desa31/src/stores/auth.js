@@ -1,8 +1,8 @@
-import { handleError } from "@/helpers/errorHelper";
-import { axiosInstance } from "@/plugins/axios";
 import router from "@/router";
 import Cookies from "js-cookie";
 import { defineStore } from "pinia";
+import { handleError } from "@/Helpers/errorHelpers";
+import { axiosInstance } from "@/plugins/axios";
 
 export const useAuthStore = defineStore("auth", {
     state: () => ({
@@ -25,13 +25,6 @@ export const useAuthStore = defineStore("auth", {
                 const token = response.data.token;
                 Cookies.set("token", token);
                 this.success = "Login successful";
-
-                // Load user & permissions sebelum redirect
-                const user = await this.checkAuth();
-                if (!user) {
-                    throw new Error("Gagal memuat data pengguna setelah login");
-                }
-
                 router.push({ name: "dashboard" });
             } catch (error) {
                 this.error = handleError(error);
@@ -40,7 +33,7 @@ export const useAuthStore = defineStore("auth", {
             }
         },
 
-        logout() {
+        async logout() {
             Cookies.remove("token");
             router.push({ name: "login" });
             this.user = null;
@@ -52,83 +45,15 @@ export const useAuthStore = defineStore("auth", {
             this.loading = true;
             try {
                 const response = await axiosInstance.get("/me");
-
-                if (!response.data?.data) {
-                    throw new Error("Invalid /me response format");
-                }
-
                 this.user = response.data.data;
                 return this.user;
             } catch (error) {
-                if (error.response?.status === 401) {
+                if (error.response && error.response.status === 401) {
                     this.logout();
-                } else {
-                    this.error = handleError(error);
                 }
-                return null;
             } finally {
                 this.loading = false;
             }
         },
     },
 });
-
-// import { handleError } from "@/helpers/errorHelper";
-// import { axiosInstance } from "@/plugins/axios";
-// import router from "@/router";
-// import Cookies from "js-cookie";
-// import { defineStore } from "pinia";
-
-// export const useAuthStore = defineStore("auth", {
-//     state: () => ({
-//         user: null,
-//         loading: false,
-//         error: null,
-//         success: null,
-//     }),
-//     getters: {
-//         token: (state) => Cookies.get("token"),
-//     },
-//     actions: {
-//         async login(credentials) {
-//             this.loading = true;
-//             try {
-//                 const response = await axiosInstance.post(
-//                     "/login",
-//                     credentials
-//                 );
-//                 const token = response.data.token;
-//                 Cookies.set("token", token);
-//                 this.success = "Login successful";
-//                 router.push({ name: "dashboard" });
-//             } catch (error) {
-//                 this.error = handleError(error);
-//             } finally {
-//                 this.loading = false;
-//             }
-//         },
-
-//         logout() {
-//             Cookies.remove("token");
-//             router.push({ name: "login" });
-//             this.user = null;
-//             this.error = null;
-//             this.success = "Logout successful";
-//         },
-
-//         async checkAuth() {
-//             this.loading = true;
-//             try {
-//                 const response = await axiosInstance.get("/me");
-//                 this.user = response.data.data;
-//                 return this.user;
-//             } catch (error) {
-//                 if (error.response && error.response.status === 401) {
-//                     this.logout();
-//                 }
-//             } finally {
-//                 this.loading = false;
-//             }
-//         },
-//     },
-// });

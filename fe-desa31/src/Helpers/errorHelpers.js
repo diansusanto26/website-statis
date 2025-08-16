@@ -3,7 +3,7 @@ export function handleError(error) {
         return error.response.data.errors;
     } else if (error.response && error.response.status === 401) {
         return error.response.data.message;
-    } else if (error.response && error.response.status === 400) {
+    } else if (error.response && error.response.status === 404) {
         return error.response.data.message;
     } else if (error.response && error.response.status === 500) {
         return error.response.data.message;

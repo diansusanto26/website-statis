@@ -1,9 +1,9 @@
 import Auth from "@/layouts/Auth.vue";
 import Main from "@/layouts/Main.vue";
-import { useAuthStore } from "@/stores/auth";
-import Dashboard from "@/views/Dashboard.vue";
+import Dashboard from "../views/Dashboard.vue";
 import Login from "@/views/Login.vue";
 import { createRouter, createWebHistory } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,18 +41,11 @@ router.beforeEach(async (to, from, next) => {
     if (to.meta.requiresAuth) {
         if (authStore.token) {
             try {
-                // Pastikan user sudah ke-load
                 if (!authStore.user) {
-                    const user = await authStore.checkAuth();
-                    if (!user) {
-                        next({ name: "login" });
-                        return;
-                    }
+                    await authStore.checkAuth();
                 }
 
                 const userPermissions = authStore.user?.permissions || [];
-
-                // Cek permission kalau ada di meta
                 if (
                     to.meta.permission &&
                     !userPermissions.includes(to.meta.permission)
@@ -76,78 +69,3 @@ router.beforeEach(async (to, from, next) => {
 });
 
 export default router;
-
-// import Auth from "@/layouts/Auth.vue";
-// import Main from "@/layouts/Main.vue";
-// import { useAuthStore } from "@/stores/auth";
-// import Dashboard from "@/views/Dashboard.vue";
-// import Login from "@/views/Login.vue";
-// import { createRouter, createWebHistory } from "vue-router";
-
-// const router = createRouter({
-//     history: createWebHistory(import.meta.env.BASE_URL),
-//     routes: [
-//         {
-//             path: "/",
-//             component: Main,
-//             children: [
-//                 {
-//                     path: "",
-//                     name: "dashboard",
-//                     component: Dashboard,
-//                     meta: { requiresAuth: true, permission: "dashboard-menu" },
-//                 },
-//             ],
-//         },
-//         {
-//             path: "/login",
-//             component: Auth,
-//             children: [
-//                 {
-//                     path: "",
-//                     name: "login",
-//                     component: Login,
-//                     meta: {
-//                         requiresUnauth: true,
-//                     },
-//                 },
-//             ],
-//         },
-//     ],
-// });
-
-// router.beforeEach(async (to, from, next) => {
-//     const authStore = useAuthStore();
-
-//     if (to.meta.requiresAuth) {
-//         if (authStore.token) {
-//             try {
-//                 if (!authStore.user) {
-//                     await authStore.checkAuth();
-//                 }
-
-//                 const userPermissions = authStore.user?.permissions || [];
-
-//                 if (
-//                     to.meta.permission &&
-//                     !userPermissions.includes(to.meta.permission)
-//                 ) {
-//                     next({ name: "Error 403" });
-//                     return;
-//                 }
-
-//                 next();
-//             } catch (error) {
-//                 next({ name: "login" });
-//             }
-//         } else {
-//             next({ name: "login" });
-//         }
-//     } else if (!to.meta.requiresAuth && authStore.token) {
-//         next({ name: "dashboard" });
-//     } else {
-//         next();
-//     }
-// });
-
-// export default router;
