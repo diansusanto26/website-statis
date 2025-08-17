@@ -53,5 +53,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
-Route::middleware('auth:sanctum')->get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware('auth:sanctum')->get('/me', [AuthController::class, 'me'])->name('me');

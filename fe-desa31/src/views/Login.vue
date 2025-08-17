@@ -40,7 +40,7 @@ const handleSubmit = async () => {
         >
             <header class="flex flex-col gap-[32px] items-center">
                 <img
-                    src="@/assets/images/logos/logo-text.svg"
+                    src="@/assets/images/logos/baros-text.svg"
                     alt="icon"
                     class="shrink-0 h-[38px] w-[197px]"
                 />
@@ -155,7 +155,7 @@ const handleSubmit = async () => {
                 class="h-full w-[622px] rounded-3xl gradient-vertical pt-[59px] pb-[60px]"
             >
                 <img
-                    src="@/assets/images/backgrounds/bg-signin.png"
+                    src="@/assets/images/backgrounds/logo_Pekalongan.png"
                     class="h-full w-[542px] object-contain mx-auto"
                     alt="banner"
                 />

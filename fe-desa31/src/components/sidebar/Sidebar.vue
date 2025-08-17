@@ -24,7 +24,7 @@ const sidebarItems = [
             <div class="flex flex-col h-full w-full gap-6 pt-[30px] px-6">
                 <div class="flex items-center justify-between">
                     <img
-                        src="@/assets/images/logos/logo-text.svg"
+                        src="@/assets/images/logos/baros-text.svg"
                         class="flex h-[30px] shrink-0"
                         alt="logo"
                     />
@@ -58,13 +58,13 @@ const sidebarItems = [
                     >
                         <div class="flex flex-col gap-1">
                             <p class="font-semibold leading-5 text-white">
-                                Beralih ke Pro
+                                Pekalongan
                             </p>
                             <a
                                 href="#"
                                 class="flex items-center font-medium text-sm hover:underline text-desa-soft-green"
                             >
-                                Upgrade Plan
+                                World's City of Batik
                                 <img
                                     src="@/assets/images/icons/arrow-right-soft-green.png"
                                     class="flex size-3 shrink-0 ml-0.5"
