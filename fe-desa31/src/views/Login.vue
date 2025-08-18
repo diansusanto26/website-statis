@@ -155,7 +155,7 @@ const handleSubmit = async () => {
                 class="h-full w-[622px] rounded-3xl gradient-vertical pt-[59px] pb-[60px]"
             >
                 <img
-                    src="@/assets/images/backgrounds/logo_Pekalongan.png"
+                    src="@/assets/images/backgrounds/kalibaros.png"
                     class="h-full w-[542px] object-contain mx-auto"
                     alt="banner"
                 />
