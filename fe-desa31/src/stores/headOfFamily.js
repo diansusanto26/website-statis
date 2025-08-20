@@ -1,5 +1,6 @@
 import { handleError } from "@/Helpers/errorHelpers";
 import { axiosInstance } from "@/plugins/axios";
+import router from "@/router";
 import { defineStore } from "pinia";
 
 export const useHeadOfFamilyStore = defineStore("head-of-family", {
@@ -42,6 +43,57 @@ export const useHeadOfFamilyStore = defineStore("head-of-family", {
                 );
                 this.headOfFamilies = response.data.data.data;
                 this.meta = response.data.data.meta;
+            } catch (error) {
+                this.error = handleError(error);
+            } finally {
+                this.loading = false;
+            }
+        },
+
+        async fetchHeadOfFamily(id) {
+            this.loading = true;
+
+            try {
+                const response = await axiosInstance.get(
+                    `/head-of-family/${id}`
+                );
+
+                return response.data.data;
+            } catch (error) {
+                this.error = handleError(error);
+            } finally {
+                this.loading = false;
+            }
+        },
+
+        async createHeadOfFamily(payload) {
+            this.loading = true;
+
+            try {
+                const response = await axiosInstance.post(
+                    "/head-of-family",
+                    payload
+                );
+
+                this.success = response.data.message;
+
+                router.push({ name: "head-of-family" });
+            } catch (error) {
+                this.error = handleError(error);
+            } finally {
+                this.loading = false;
+            }
+        },
+
+        async deleteHeadOfFamily(id) {
+            this.loading = true;
+
+            try {
+                const responce = await axiosInstance.delete(
+                    `/head-of-family/${id}`
+                );
+
+                this.success = responce.data.message;
             } catch (error) {
                 this.error = handleError(error);
             } finally {

@@ -5,6 +5,8 @@ import HeadOfFamilies from "@/views/head-of-family/HeadOfFamilies.vue";
 import Login from "@/views/Login.vue";
 import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
+import HeadOfFamily from "@/views/head-of-family/HeadOfFamily.vue";
+import HeadOfFamilyCreate from "@/views/head-of-family/HeadOfFamilyCreate.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +28,24 @@ const router = createRouter({
                     meta: {
                         requiresAuth: true,
                         permission: "head-of-family-list",
+                    },
+                },
+                {
+                    path: "head-of-family/:id",
+                    name: "menage-head-of-family",
+                    component: HeadOfFamily,
+                    meta: {
+                        requiresAuth: true,
+                        permission: "head-of-family-list",
+                    },
+                },
+                {
+                    path: "head-of-family/create",
+                    name: "create-head-of-family",
+                    component: HeadOfFamilyCreate,
+                    meta: {
+                        requiresAuth: true,
+                        permission: "head-of-family-create",
                     },
                 },
             ],

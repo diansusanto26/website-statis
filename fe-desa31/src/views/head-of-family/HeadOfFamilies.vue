@@ -51,8 +51,8 @@ watch(
 <template>
     <div id="Header" class="flex items-center justify-between">
         <h1 class="font-semibold text-2xl">Kepala Keluarga</h1>
-        <a
-            href="kd-kepala-rumah-add.html"
+        <RouterLink
+            :to="{ name: 'create-head-of-family' }"
             class="flex items-center rounded-2xl py-4 px-6 gap-[10px] bg-desa-dark-green"
         >
             <img
@@ -61,8 +61,49 @@ watch(
                 alt="icon"
             />
             <p class="font-medium text-white">Add New</p>
-        </a>
+        </RouterLink>
     </div>
+
+    <div
+        v-if="success"
+        class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-2xl relative mb-4"
+        role="alert"
+    >
+        <span class="block sm:inline">{{ success }}</span>
+
+        <button
+            type="button"
+            @click="success = null"
+            class="absolute top-1/2 -translate-y-1/2 right-4"
+        >
+            <img
+                src="@/assets/images/icons/close-circle-white.svg"
+                class="flex size-6 shrink-0"
+                alt="icon"
+            />
+        </button>
+    </div>
+
+    <div
+        v-if="error"
+        class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-2xl relative mb-4"
+        role="alert"
+    >
+        <span class="block sm:inline">{{ error }}</span>
+
+        <button
+            type="button"
+            @click="error = null"
+            class="absolute top-1/2 -translate-y-1/2 right-4"
+        >
+            <img
+                src="@/assets/images/icons/close-circle-white.svg"
+                class="flex size-6 shrink-0"
+                alt="icon"
+            />
+        </button>
+    </div>
+
     <section id="List-Kepala-Rumah" class="flex flex-col gap-[14px]">
         <form id="Page-Search" class="flex items-center justify-between">
             <div class="flex flex-col gap-3 w-[370px] shrink-0">

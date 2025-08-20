@@ -69,11 +69,11 @@ defineProps({
             </div>
         </div>
 
-        <a
-            href="/kd-kepala-rumah-manage.html"
-            class="flex items-center justify-center rounded-xl px-4 py-2 bg-desa-dark-green"
+        <RouterLink
+            :to="{ name: 'menage-head-of-family', params: { id: item.id } }"
+            class="flex items-center shrink-0 gap-[10] rounded-xl py-4 px-6 bg-desa-black"
         >
             <span class="font-medium text-white">Manage</span>
-        </a>
+        </RouterLink>
     </div>
 </template>
