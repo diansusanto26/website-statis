@@ -7,6 +7,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 import HeadOfFamily from "@/views/head-of-family/HeadOfFamily.vue";
 import HeadOfFamilyCreate from "@/views/head-of-family/HeadOfFamilyCreate.vue";
+import SocialAssistances from "@/views/social-assistance/SocialAssistances.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -46,6 +47,15 @@ const router = createRouter({
                     meta: {
                         requiresAuth: true,
                         permission: "head-of-family-create",
+                    },
+                },
+                {
+                    path: "social-assistance",
+                    name: "social-assistance",
+                    component: SocialAssistances,
+                    meta: {
+                        requiresAuth: true,
+                        permission: "social-assistance-list",
                     },
                 },
             ],
